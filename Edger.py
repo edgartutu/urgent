@@ -12,69 +12,150 @@ def employee_table():
 
 employee_table()
 
-def accural_monthly():
-    a = 5
-    b = 10
-    c = 15
-    d = 20
-    e = 25
 
-def tenure_years():
-    one_two = 1
-    two_four = 1.25
-    four_plus = 1.5
+accural = {'A':5,'B':10,'C':15,'D':20,'E':25}
+tenure = {'one_two':1,'two_four':1.25,'four_plus':1.5}
 
 def insert_employee(empid,startdate,seniority):
     c.execute("INSERT INTO Employee (EmployeeID,StartDate,Seniority) VALUES(?,?,?)",(empid,startdate,seniority))
     conn.commit()
 
+'''
+You will need to remove the print statments and check how i have calculated the points but
+otherwise the code is done.
+Check for any redundant code and remove so as to make the code neat
+'''
+
 def queary_points(empid):
+    start = []
+    sen = []
+    datelist = []
+    year = []
     
     c.execute("SELECT * FROM Employee WHERE EmployeeID = ?",(empid,))
 
     for row in c.fetchall():
-        startdate = row[1]
-        seniority = row[2]
+        
+        startdate = row[2]
+        seniority = row[3]
 
-        print(startdate,seniority)
+        start.append(startdate)
+        sen.append(seniority)
 
-def Calculate_points():
-    list_=[]
+    print(start)
+    print(sen)
+    count = 0
+    count1 = 0
+    while count<len(start):
+        date = datetime.datetime.strptime(start[count],"%Y/%m/%d")
+        period = datetime.datetime.today().year-date.year
+        datelist.append(period)
+        year.append(date.year)
+        count+=1
+    print(year)
+    print(datelist)
 
-    for i in employee_table.query.filter_by(EmployeeID=1):  #try to filter as its done in sqlite by the persons id
-        dict_={"id":i.EmployeeID,'date':i.StartDate,'senior':i.Seniority}
-        dict_.append(list_) #apend the disctionaries to a list
+    while count1<len(year):
+        x = datelist[count1]
+        y = sen[count1]
+        
+        if x >= 1 & x <= 2:
+            w = tenure.get('one_two')
 
-    date1_=datetime.datetime.strptime(list_[0]['date'], "%m/%d/%Y") # pick out the dates from the dictionary and strip them to normal
-    date2_=datetime.datetime.strptime(list_[1]['date'], "%m/%d/%Y")
-    date3_=datetime.datetime.strptime(list_[3]['date'], "%m/%d/%Y")
-    date12_=date1_-date2_  # calc the difference of dates 
-    date23_=date2_-date3_
+            if y == 'A':
+                q = accural.get('A')
+                points = w*q
+                print('For '+str(start[count1])+' you have '+str(points)+ ' points')
 
-    s1=list_[0]['senior']  # check the seniority before u do the computation please u can use your methods in all this parts 
-    while True:
-        s0=abs(date12_.days)
-        s1=abs(date23_.days)
+            elif y == 'B':
+                q = accural.get('B')
+                points = w*q
+                print('For '+str(start[count1])+' you have '+str(points)+ ' points')
 
-        P1= tenure_years.one_two *accural_monthly.a * (s0)/365 
-        P2= tenure_years.two_four *accural_monthly.c * (s1)/365
-        if s0<=730 :
+            elif y == 'C':
+                q = accural.get('C')
+                points = w*q
+                print('For '+str(start[count1])+' you have '+str(points)+ ' points')
+                
+            elif y == 'D':
+                q = accural.get('D')
+                points = w*q
+                print('For '+str([count1])+' you have '+str(points)+ ' points')
 
-            
-        elif 730<s1<=1460:
-            
+            elif y == 'E':
+                q = accural.get('E')
+                points = w*q
+                print('For '+str(start[count1])+' you have '+str(points)+ ' points')
 
+            else:
+                print('Error')
 
+        elif x >= 2 & x <= 4:
+            w = tenure.get('two_four')
 
-            
+            if y == 'A':
+                q = accural.get('A')
+                points = w*q
+                print('For '+str(start[count1])+' you have '+str(points)+ ' points')
 
-        P2=accural_monthly.c * (s1)/365
+            elif y == 'B':
+                q = accural.get('B')
+                points = w*q
+                print('For '+str(start[count1])+' you have '+str(points)+ ' points')
 
-        if P1<=
+            elif y == 'C':
+                q = accural.get('C')
+                points = w*q
+                print('For '+str(start[count1])+' you have '+str(points)+ ' points')
+                
+            elif y == 'D':
+                q = accural.get('D')
+                points = w*q
+                print('For '+str(start[count1])+' you have '+str(points)+ ' points')
 
-    
+            elif y == 'E':
+                q = accural.get('E')
+                points = w*q
+                print('For '+str(start[count1])+' you have '+str(points)+ ' points')
 
+            else:
+                print('Error')
 
+        elif x > 4:
+            w = tenure.get('four_plus')
+
+            if y == 'A':
+                q = accural.get('A')
+                points = w*q
+                print('For '+str(start[count1])+' you have '+str(points)+ ' points')
+
+            elif y == 'B':
+                q = accural.get('B')
+                points = w*q
+                print('For '+str(start[count1])+' you have '+str(points)+ ' points')
+
+            elif y == 'C':
+                q = accural.get('C')
+                points = w*q
+                print('For '+str(start[count1])+' you have '+str(points)+ ' points')
+                
+            elif y == 'D':
+                q = accural.get('D')
+                points = w*q
+                print('For '+str(start[count1])+' you have '+str(points)+ ' points')
+
+            elif y == 'E':
+                q = accural.get('E')
+                points = w*q
+                print('For '+str(start[count1])+' you have '+str(points)+ ' points')
+
+            else:
+                print('Error')
+
+        else:
+            print('Out of range')
+
+        count1+=1
 
 '''
  f
